@@ -1,0 +1,40 @@
+# 사이트 기본 정보
+title: 속초일보
+description: 속초 지역 대표 언론사 - 정확하고 신속한 뉴스 전달
+baseurl: ""
+url: "https://sokchodaily.github.io"
+
+# 속초일보 정보
+author: 속초일보
+email: news@sokchodaily.com
+phone: "033-000-0000"
+address: "강원도 속초시 중앙로 000번길 00"
+
+# Jekyll 설정
+markdown: kramdown
+highlighter: rouge
+theme: minima
+permalink: /:categories/:year/:month/:day/:title/
+
+# 플러그인
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-seo-tag
+
+# 카테고리 설정
+categories:
+  - 속보
+  - 정치
+  - 경제
+  - 사회
+  - 문화
+  - 관광
+  - 스포츠
+
+# 빌드 설정
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor/
