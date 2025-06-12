@@ -1,0 +1,66 @@
+<header class="site-header">
+    <!-- 속보 티커 -->
+    <div class="breaking-news">
+        <span class="breaking-label">🚨 속보</span>
+        <div class="breaking-text">
+            <span>속초시 2024년 예산안 확정... 관광개발에 78억원 투입</span>
+        </div>
+    </div>
+    
+    <!-- 메인 헤더 -->
+    <div class="header-main">
+        <div class="container">
+            <div class="header-top">
+                <!-- 로고 -->
+                <div class="logo">
+                    <a href="{{ '/' | relative_url }}">
+                        <h1>속초<span>일보</span></h1>
+                        <p class="tagline">바다와 산이 만나는 곳, 속초의 모든 이야기</p>
+                    </a>
+                </div>
+                
+                <!-- 날씨 & 시간 -->
+                <div class="header-info">
+                    <div class="weather">
+                        <span class="weather-icon">🌤️</span>
+                        <span class="weather-temp">23°C</span>
+                        <span class="weather-desc">맑음</span>
+                    </div>
+                    <div class="current-time" id="currentTime"></div>
+                </div>
+            </div>
+            
+            <!-- 네비게이션 메뉴 -->
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="{{ '/' | relative_url }}">홈</a></li>
+                    <li><a href="{{ '/category/breaking' | relative_url }}">속보</a></li>
+                    <li><a href="{{ '/category/politics' | relative_url }}">정치</a></li>
+                    <li><a href="{{ '/category/economy' | relative_url }}">경제</a></li>
+                    <li><a href="{{ '/category/society' | relative_url }}">사회</a></li>
+                    <li><a href="{{ '/category/culture' | relative_url }}">문화</a></li>
+                    <li><a href="{{ '/category/tourism' | relative_url }}">관광</a></li>
+                    <li><a href="{{ '/category/sports' | relative_url }}">스포츠</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</header>
+
+<script>
+// 실시간 시계
+function updateTime() {
+    const now = new Date();
+    const timeString = now.toLocaleString('ko-KR', {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit'
+    });
+    document.getElementById('currentTime').textContent = timeString;
+}
+setInterval(updateTime, 1000);
+updateTime();
+</script>
