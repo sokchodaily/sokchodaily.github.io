@@ -1,0 +1,522 @@
+---
+layout: default
+---
+
+<div class="category-page">
+    <!-- 카테고리 헤더 -->
+    <div class="category-header">
+        <div class="container">
+            <div class="category-nav">
+                <a href="{{ '/' | relative_url }}" class="home-link">홈</a>
+                <span class="nav-separator">></span>
+                <span class="current-category">{{ page.title }}</span>
+            </div>
+            <h1 class="category-title">
+                <span class="category-icon">{{ page.icon }}</span>
+                {{ page.title }}
+            </h1>
+            <p class="category-description">{{ page.description }}</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="news-layout">
+            <!-- 메인 뉴스 섹션 -->
+            <main class="main-content">
+                {% assign category_posts = site.posts | where: "category", page.category %}
+                {% if category_posts.size > 0 %}
+                    
+                    <!-- 주요 뉴스 (첫 번째 포스트) -->
+                    {% assign featured_post = category_posts.first %}
+                    <article class="featured-article">
+                        <div class="featured-image">
+                            {% if featured_post.image %}
+                                <img src="{{ featured_post.image }}" alt="{{ featured_post.title }}">
+                            {% else %}
+                                <div class="image-placeholder">
+                                    <span>{{ page.icon }}</span>
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="featured-content">
+                            <span class="article-category" style="background-color: {{ page.color | default: '#3b82f6' }}">
+                                {{ page.title }}
+                            </span>
+                            <h2 class="featured-title">
+                                <a href="{{ featured_post.url }}">{{ featured_post.title }}</a>
+                            </h2>
+                            <p class="featured-excerpt">{{ featured_post.excerpt | strip_html | truncate: 200 }}</p>
+                            <div class="article-meta">
+                                <span class="meta-time">{{ featured_post.date | date: "%m월 %d일" }}</span>
+                                <span class="meta-author">{{ featured_post.author | default: "속초일보" }}</span>
+                                {% if featured_post.views %}
+                                <span class="meta-views">조회 {{ featured_post.views }}회</span>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- 뉴스 목록 -->
+                    <div class="news-list">
+                        {% assign remaining_posts = category_posts | offset: 1 %}
+                        {% for post in remaining_posts limit: 20 %}
+                        <article class="news-item">
+                            <div class="news-image">
+                                {% if post.image %}
+                                    <img src="{{ post.image }}" alt="{{ post.title }}">
+                                {% else %}
+                                    <div class="image-placeholder-small">{{ page.icon }}</div>
+                                {% endif %}
+                            </div>
+                            <div class="news-content">
+                                <h3 class="news-title">
+                                    <a href="{{ post.url }}">{{ post.title }}</a>
+                                </h3>
+                                <p class="news-excerpt">{{ post.excerpt | strip_html | truncate: 120 }}</p>
+                                <div class="news-meta">
+                                    <span class="meta-time">{{ post.date | date: "%m월 %d일" }}</span>
+                                    <span class="meta-author">{{ post.author | default: "속초일보" }}</span>
+                                    <span class="meta-separator">|</span>
+                                    {% if post.views %}
+                                    <span class="meta-views">{{ post.views }}명 읽음</span>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </article>
+                        {% endfor %}
+                    </div>
+
+                {% else %}
+                    <!-- 빈 카테고리 상태 -->
+                    <div class="empty-category">
+                        <div class="empty-icon">{{ page.icon }}</div>
+                        <h3>{{ page.title }} 카테고리의 기사가 준비 중입니다</h3>
+                        <p>곧 새로운 소식을 전해드리겠습니다.</p>
+                        <a href="{{ '/' | relative_url }}" class="back-home-btn">홈으로 돌아가기</a>
+                    </div>
+                {% endif %}
+            </main>
+
+            <!-- 사이드바 -->
+            <aside class="sidebar">
+                <!-- 다른 카테고리 -->
+                <div class="sidebar-section">
+                    <h3 class="sidebar-title">다른 카테고리</h3>
+                    <ul class="category-list">
+                        {% assign categories = "breaking,politics,economy,society,culture,tourism,sports" | split: "," %}
+                        {% for cat in categories %}
+                            {% unless cat == page.category %}
+                            <li>
+                                <a href="{{ '/category/' | append: cat | append: '/' | relative_url }}" 
+                                   class="category-link {% if cat == page.category %}active{% endif %}">
+                                    {% case cat %}
+                                        {% when 'breaking' %}🚨 속보
+                                        {% when 'politics' %}🏛️ 정치
+                                        {% when 'economy' %}💼 경제
+                                        {% when 'society' %}🏘️ 사회
+                                        {% when 'culture' %}🎭 문화
+                                        {% when 'tourism' %}🌊 관광
+                                        {% when 'sports' %}⚽ 스포츠
+                                    {% endcase %}
+                                </a>
+                            </li>
+                            {% endunless %}
+                        {% endfor %}
+                    </ul>
+                </div>
+
+                <!-- 최신 뉴스 -->
+                <div class="sidebar-section">
+                    <h3 class="sidebar-title">최신 뉴스</h3>
+                    <ul class="latest-news">
+                        {% assign latest_posts = site.posts | limit: 5 %}
+                        {% for post in latest_posts %}
+                        <li class="latest-item">
+                            <a href="{{ post.url }}" class="latest-link">
+                                <span class="latest-title">{{ post.title | truncate: 30 }}</span>
+                                <span class="latest-time">{{ post.date | date: "%m.%d" }}</span>
+                            </a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </aside>
+        </div>
+    </div>
+</div>
+
+<style>
+/* 전문적인 뉴스 사이트 스타일 카테고리 페이지 */
+.category-page {
+    background: #ffffff;
+}
+
+.category-header {
+    background: #f8f9fa;
+    border-bottom: 1px solid #e9ecef;
+    padding: 20px 0;
+}
+
+.category-nav {
+    font-size: 13px;
+    color: #6c757d;
+    margin-bottom: 10px;
+}
+
+.category-nav a {
+    color: #6c757d;
+    text-decoration: none;
+}
+
+.category-nav a:hover {
+    color: #1e40af;
+}
+
+.nav-separator {
+    margin: 0 8px;
+}
+
+.current-category {
+    color: #1e40af;
+    font-weight: 500;
+}
+
+.category-title {
+    font-family: 'SokchoBadaDotum', sans-serif;
+    font-size: 2rem;
+    color: #212529;
+    margin: 0 0 5px 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.category-icon {
+    font-size: 1.8rem;
+}
+
+.category-description {
+    color: #6c757d;
+    margin: 0;
+    font-size: 14px;
+}
+
+.news-layout {
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    gap: 40px;
+    padding: 30px 0;
+}
+
+.main-content {
+    min-height: 500px;
+}
+
+/* 주요 뉴스 */
+.featured-article {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 40px;
+    padding-bottom: 30px;
+    border-bottom: 2px solid #e9ecef;
+}
+
+.featured-image img,
+.image-placeholder {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+.image-placeholder {
+    background: #f8f9fa;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+    color: #dee2e6;
+}
+
+.featured-content {
+    padding: 10px 0;
+}
+
+.article-category {
+    background: #1e40af;
+    color: white;
+    font-size: 11px;
+    padding: 4px 8px;
+    border-radius: 3px;
+    display: inline-block;
+    margin-bottom: 12px;
+    font-weight: 500;
+}
+
+.featured-title {
+    font-family: 'SokchoBadaBatang', serif;
+    font-size: 1.4rem;
+    line-height: 1.4;
+    margin: 0 0 15px 0;
+    font-weight: 600;
+}
+
+.featured-title a {
+    color: #212529;
+    text-decoration: none;
+}
+
+.featured-title a:hover {
+    color: #1e40af;
+}
+
+.featured-excerpt {
+    color: #495057;
+    line-height: 1.6;
+    margin-bottom: 15px;
+    font-size: 14px;
+}
+
+.article-meta {
+    font-size: 12px;
+    color: #6c757d;
+    display: flex;
+    gap: 12px;
+}
+
+/* 뉴스 목록 */
+.news-list {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.news-item {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 15px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.news-image img {
+    width: 120px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+.image-placeholder-small {
+    width: 120px;
+    height: 80px;
+    background: #f8f9fa;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    color: #dee2e6;
+    border-radius: 4px;
+}
+
+.news-title {
+    font-family: 'SokchoBadaBatang', serif;
+    font-size: 16px;
+    line-height: 1.4;
+    margin: 0 0 8px 0;
+    font-weight: 600;
+}
+
+.news-title a {
+    color: #212529;
+    text-decoration: none;
+}
+
+.news-title a:hover {
+    color: #1e40af;
+}
+
+.news-excerpt {
+    color: #6c757d;
+    font-size: 13px;
+    line-height: 1.5;
+    margin: 0 0 8px 0;
+}
+
+.news-meta {
+    font-size: 11px;
+    color: #868e96;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.meta-separator {
+    color: #dee2e6;
+}
+
+/* 사이드바 */
+.sidebar {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 8px;
+    height: fit-content;
+    position: sticky;
+    top: 20px;
+}
+
+.sidebar-section {
+    margin-bottom: 30px;
+}
+
+.sidebar-section:last-child {
+    margin-bottom: 0;
+}
+
+.sidebar-title {
+    font-family: 'SokchoBadaBatang', serif;
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 15px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #1e40af;
+    color: #212529;
+}
+
+.category-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.category-list li {
+    margin-bottom: 8px;
+}
+
+.category-link {
+    display: block;
+    padding: 8px 12px;
+    color: #495057;
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 14px;
+    transition: all 0.2s;
+}
+
+.category-link:hover,
+.category-link.active {
+    background: #1e40af;
+    color: white;
+}
+
+.latest-news {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.latest-item {
+    margin-bottom: 12px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.latest-item:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+}
+
+.latest-link {
+    display: block;
+    text-decoration: none;
+    color: #495057;
+}
+
+.latest-title {
+    display: block;
+    font-size: 13px;
+    line-height: 1.4;
+    margin-bottom: 4px;
+}
+
+.latest-link:hover .latest-title {
+    color: #1e40af;
+}
+
+.latest-time {
+    font-size: 11px;
+    color: #868e96;
+}
+
+/* 빈 카테고리 */
+.empty-category {
+    text-align: center;
+    padding: 80px 20px;
+    color: #6c757d;
+}
+
+.empty-icon {
+    font-size: 4rem;
+    margin-bottom: 20px;
+    opacity: 0.5;
+}
+
+.empty-category h3 {
+    font-family: 'SokchoBadaBatang', serif;
+    margin-bottom: 10px;
+    color: #495057;
+}
+
+.back-home-btn {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    background: #1e40af;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.back-home-btn:hover {
+    background: #1e3a8a;
+}
+
+/* 반응형 */
+@media (max-width: 768px) {
+    .news-layout {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+    
+    .featured-article {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    
+    .featured-image img,
+    .image-placeholder {
+        height: 200px;
+    }
+    
+    .news-item {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+    
+    .news-image img,
+    .image-placeholder-small {
+        width: 100%;
+        height: 150px;
+    }
+    
+    .category-title {
+        font-size: 1.5rem;
+    }
+    
+    .sidebar {
+        order: -1;
+        margin-bottom: 20px;
+    }
+}
+</style>

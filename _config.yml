@@ -51,3 +51,27 @@ exclude:
   - Gemfile.lock
   - node_modules
   - vendor/
+
+# 페이지네이션 설정
+paginate: 10
+paginate_path: "/page:num/"
+
+# 컬렉션 설정
+collections:
+  posts:
+    output: true
+    permalink: /:year/:month/:day/:title/
+
+# 기본값 설정
+defaults:
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+      author: "속초일보"
+  - scope:
+      path: "category"
+      type: "pages"
+    values:
+      layout: "category"
