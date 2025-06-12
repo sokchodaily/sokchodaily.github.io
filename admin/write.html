@@ -422,6 +422,68 @@
         .editable a:hover {
             text-decoration: underline;
         }
+
+        /* 발행 모달 스타일 */
+        .publish-form {
+            max-height: 500px;
+            overflow-y: auto;
+        }
+
+        .radio-group {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 8px;
+        }
+
+        .radio-label {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .radio-label input[type="radio"] {
+            margin: 0;
+        }
+
+        .checkbox-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-top: 8px;
+        }
+
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .checkbox-label input[type="checkbox"] {
+            margin: 0;
+        }
+
+        .help-text {
+            font-size: 12px;
+            color: #666;
+            margin-top: 8px;
+            margin-bottom: 0;
+        }
+
+        @media (max-width: 768px) {
+            .radio-group {
+                flex-direction: column;
+                gap: 12px;
+            }
+            
+            .checkbox-grid {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 </head>
 <body>
@@ -617,6 +679,129 @@
             <div style="text-align: right; margin-top: 20px;">
                 <button class="btn btn-secondary" onclick="closeModal('linkModal')">취소</button>
                 <button class="btn btn-primary" onclick="insertLink()">삽입</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 발행 설정 모달 -->
+    <div id="publishModal" class="modal">
+        <div class="modal-content" style="min-width: 500px; max-width: 700px;">
+            <div class="modal-header">
+                <div class="modal-title">발행 설정</div>
+                <button class="close-btn" onclick="closeModal('publishModal')">&times;</button>
+            </div>
+            
+            <div class="publish-form">
+                <div class="form-group">
+                    <label class="form-label">카테고리</label>
+                    <select class="form-input" id="publishCategory">
+                        <option value="속초시정">속초시정</option>
+                        <option value="속초의회">속초의회</option>
+                        <option value="속초경찰서">속초경찰서</option>
+                        <option value="속초해양경찰서">속초해양경찰서</option>
+                        <option value="속초소방서">속초소방서</option>
+                        <option value="사회">사회</option>
+                        <option value="경제">경제</option>
+                        <option value="문화">문화</option>
+                        <option value="스포츠">스포츠</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">주제</label>
+                    <input type="text" class="form-input" id="publishSubject" placeholder="주제를 입력하세요">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">공개 설정</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="visibility" value="전체공개" checked>
+                            <span>전체공개</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="visibility" value="이웃공개">
+                            <span>이웃공개</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="visibility" value="서로이웃공개">
+                            <span>서로이웃공개</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="visibility" value="비공개">
+                            <span>비공개</span>
+                        </label>
+                    </div>
+                    <p class="help-text">모든 사람이 이 글을 볼 수 있습니다.</p>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">발행 설정</label>
+                    <div class="checkbox-grid">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="allowComments" checked>
+                            <span>댓글허용</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="allowGuestComments">
+                            <span>공감허용</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="allowScraps" checked>
+                            <span>검색허용</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="blogCafePush" checked>
+                            <span>블로그/카페 공유</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="allowExternalShare" checked>
+                            <span>외부 공유 허용</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="ccl">
+                            <span>CCL표시</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="saveAsDefault">
+                        <span>이 설정을 기본값으로 유지</span>
+                    </label>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">태그 편집</label>
+                    <textarea class="form-input" id="publishTags" placeholder="#태그 입력 (최대 30개)" rows="3"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">발행 시간</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="publishTime" value="현재" checked>
+                            <span>현재</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="publishTime" value="예약">
+                            <span>예약</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="notifySubscribers">
+                        <span>공지사항으로 등록</span>
+                    </label>
+                </div>
+            </div>
+
+            <div style="text-align: right; margin-top: 24px; padding-top: 20px; border-top: 1px solid #e5e5e5;">
+                <button class="btn btn-secondary" onclick="closeModal('publishModal')" style="margin-right: 12px;">취소</button>
+                <button class="btn btn-primary" onclick="finalPublish()">✓ 발행</button>
             </div>
         </div>
     </div>
@@ -828,18 +1013,69 @@
             
             if (!title.trim()) {
                 alert('제목을 입력해주세요.');
+                document.getElementById('postTitle').focus();
                 return;
             }
             
             if (!content.trim() || content === '<br>') {
                 alert('내용을 입력해주세요.');
+                editor.focus();
                 return;
             }
             
+            // 발행 설정 모달 열기
+            document.getElementById('publishModal').style.display = 'block';
+        }
+
+        // 최종 발행
+        function finalPublish() {
+            const title = document.getElementById('postTitle').value;
+            const content = document.getElementById('postContent').innerHTML;
+            const category = document.getElementById('publishCategory').value;
+            const subject = document.getElementById('publishSubject').value;
+            const visibility = document.querySelector('input[name="visibility"]:checked').value;
+            const publishTime = document.querySelector('input[name="publishTime"]:checked').value;
+            const tags = document.getElementById('publishTags').value;
+            
+            // 설정값들 수집
+            const settings = {
+                allowComments: document.getElementById('allowComments').checked,
+                allowGuestComments: document.getElementById('allowGuestComments').checked,
+                allowScraps: document.getElementById('allowScraps').checked,
+                blogCafePush: document.getElementById('blogCafePush').checked,
+                allowExternalShare: document.getElementById('allowExternalShare').checked,
+                ccl: document.getElementById('ccl').checked,
+                saveAsDefault: document.getElementById('saveAsDefault').checked,
+                notifySubscribers: document.getElementById('notifySubscribers').checked
+            };
+            
             // 여기서 실제 발행 로직 구현
-            console.log('Title:', title);
-            console.log('Content:', content);
-            alert('글이 발행되었습니다!');
+            const postData = {
+                title,
+                content,
+                category,
+                subject,
+                visibility,
+                publishTime,
+                tags,
+                settings,
+                timestamp: new Date().toISOString()
+            };
+            
+            console.log('발행할 게시물 데이터:', postData);
+            
+            // 임시저장 데이터 삭제
+            localStorage.removeItem('blogDraft');
+            
+            closeModal('publishModal');
+            alert('글이 성공적으로 발행되었습니다!');
+            
+            // 선택적: 페이지 초기화 또는 리다이렉트
+            if (confirm('새 글을 작성하시겠습니까?')) {
+                document.getElementById('postTitle').value = '';
+                document.getElementById('postContent').innerHTML = '';
+                document.getElementById('postTitle').focus();
+            }
         }
 
         // 모달 외부 클릭시 닫기
