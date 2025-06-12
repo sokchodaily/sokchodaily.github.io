@@ -1,0 +1,63 @@
+<footer class="site-footer">
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>속초일보</h3>
+                <p>{{ site.description }}</p>
+                <p style="margin-top: 15px;">
+                    <strong>주소:</strong> {{ site.address }}<br>
+                    <strong>전화:</strong> {{ site.phone }}<br>
+                    <strong>이메일:</strong> {{ site.email }}
+                </p>
+            </div>
+            
+            <div class="footer-section">
+                <h3>뉴스 카테고리</h3>
+                <ul style="list-style: none;">
+                    <li><a href="{{ '/category/breaking' | relative_url }}">속보</a></li>
+                    <li><a href="{{ '/category/politics' | relative_url }}">정치</a></li>
+                    <li><a href="{{ '/category/economy' | relative_url }}">경제</a></li>
+                    <li><a href="{{ '/category/society' | relative_url }}">사회</a></li>
+                    <li><a href="{{ '/category/culture' | relative_url }}">문화</a></li>
+                    <li><a href="{{ '/category/tourism' | relative_url }}">관광</a></li>
+                    <li><a href="{{ '/category/sports' | relative_url }}">스포츠</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>서비스</h3>
+                <ul style="list-style: none;">
+                    <li><a href="#">광고 문의</a></li>
+                    <li><a href="#">제보하기</a></li>
+                    <li><a href="#">구독 신청</a></li>
+                    <li><a href="#">RSS 피드</a></li>
+                    <li><a href="#">개인정보처리방침</a></li>
+                    <li><a href="#">이용약관</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>소셜 미디어</h3>
+                <div style="display: flex; gap: 15px; margin-top: 15px;">
+                    <a href="#" style="font-size: 24px; color: #3b82f6;">📘</a>
+                    <a href="#" style="font-size: 24px; color: #3b82f6;">📸</a>
+                    <a href="#" style="font-size: 24px; color: #3b82f6;">🐦</a>
+                    <a href="#" style="font-size: 24px; color: #3b82f6;">📺</a>
+                    <a href="#" style="font-size: 24px; color: #3b82f6;">💬</a>
+                </div>
+                <p style="margin-top: 15px; font-size: 14px;">
+                    실시간 뉴스와 속초 소식을<br>
+                    소셜미디어로 받아보세요!
+                </p>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; {{ 'now' | date: "%Y" }} 속초일보. All rights reserved.</p>
+            <p style="margin-top: 10px; font-size: 12px;">
+                본 저작물은 속초시에서 제작한 속초바다체를 사용했습니다. 
+                (<a href="https://www.sokcho.go.kr/portal/happysokcho/citysymbol/font" style="color: #3b82f6;">속초시 공식 글꼴</a>)
+            </p>
+        </div>
+    </div>
+</footer>
