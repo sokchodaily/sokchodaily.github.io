@@ -1,0 +1,93 @@
+# 속초일보 Jekyll 설정 파일
+title: "속초일보"
+subtitle: "바다와 산이 만나는 곳, 속초의 모든 이야기"
+description: "속초 지역 대표 언론사 - 정확하고 신속한 뉴스 전달"
+baseurl: ""
+url: "https://sokchodaily.github.io"
+
+# 사이트 정보
+author:
+  name: "김도엽"
+  role: "발행인 · 편집인"
+  email: "news@sokchodaily.com"
+  phone: "010-8423-7491"
+
+# 언론사 정보
+press_info:
+  registration: "강원, 아00263"
+  established: "2019년 11월 19일"
+  first_published: "2019년 11월 26일"
+  address: "강원도 속초시 중앙시장로 8길 7-6"
+
+# Jekyll 설정
+theme: minima
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-seo-tag
+
+# 메뉴 구성
+navigation:
+  - title: "홈"
+    url: "/"
+  - title: "속보"
+    url: "/breaking/"
+  - title: "정치"
+    url: "/politics/"
+  - title: "경제"
+    url: "/economy/"
+  - title: "사회"
+    url: "/society/"
+  - title: "문화"
+    url: "/culture/"
+  - title: "관광"
+    url: "/tourism/"
+  - title: "스포츠"
+    url: "/sports/"
+
+# 게시물 설정
+permalink: /:year/:month/:day/:title/
+paginate: 10
+paginate_path: "/page/:num/"
+
+# 제외할 파일들
+exclude:
+  - models/
+  - views/
+  - controllers/
+  - "*.py"
+  - "*.log"
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor
+
+# 타임존
+timezone: Asia/Seoul
+
+# 기본 레이아웃
+defaults:
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+      author: "AI 기자"
+      show_date: true
+
+# SEO 설정
+lang: ko_KR
+google_analytics: # 추후 설정
+
+# 소셜 미디어
+social:
+  facebook: sokchodaily
+  instagram: sokchodaily
+  twitter: sokchodaily
+  youtube: sokchodaily
+
+# 사이트 색상 (속초일보 브랜딩)
+colors:
+  primary: "#1976d2"    # 바다색
+  secondary: "#4caf50"  # 산색
+  accent: "#ff9800"     # 포인트색 

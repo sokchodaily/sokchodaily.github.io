@@ -1,0 +1,66 @@
+2025-07-02 08:43:22,295 - controllers.ai_writer - WARNING - ⚠️ AI API 키가 없습니다. 로컬 템플릿 모드로 실행됩니다.
+2025-07-02 08:43:22,295 - controllers.ai_writer - INFO - 🖋️ AI 기사 작성기 초기화 완료
+2025-07-02 08:43:22,296 - controllers.github_publisher - ERROR - ❌ Git 리포지토리가 아닙니다. git init을 먼저 실행하세요.
+2025-07-02 08:43:22,296 - __main__ - ERROR - ❌ 시스템 실행 실패: D:\Python\AUTOMATIC STORAGE SYSTEM FOR Gmail FILE\sokchodaily_github_io
+2025-07-02 08:45:03,856 - controllers.ai_writer - WARNING - ⚠️ AI API 키가 없습니다. 로컬 템플릿 모드로 실행됩니다.
+2025-07-02 08:45:03,856 - controllers.ai_writer - INFO - 🖋️ AI 기사 작성기 초기화 완료
+2025-07-02 08:45:03,862 - controllers.github_publisher - INFO - 📂 Git 리포지토리 연결: D:\Python\AUTOMATIC STORAGE SYSTEM FOR Gmail FILE\sokchodaily_github_io
+2025-07-02 08:45:03,863 - controllers.github_publisher - INFO - 🚀 GitHub 발행기 초기화 완료
+2025-07-02 08:45:03,863 - main_ai_news - INFO - 🌊 속초일보 AI 뉴스 시스템 초기화 완료
+2025-07-02 08:45:03,863 - main_ai_news - INFO - 📄 HWP 파일 처리 시작: D:\속초일보_보도자료\2025-07-02\02_강원도\보도자료\2025-07-02_강원도_1. 보도자료(강원문화재단,  2025 문화누리카드 잔액 소진 이벤트 진행).hwp
+2025-07-02 08:45:03,863 - models.hwp_parser - INFO - 📄 HWP 파서 초기화: D:\속초일보_보도자료\2025-07-02\02_강원도\보도자료\2025-07-02_강원도_1. 보도자료(강원문화재단,  2025 문화누리카드 잔액 소진 이벤트 진행).hwp
+2025-07-02 08:45:03,863 - models.hwp_parser - INFO - 🔍 HWP 파일 파싱 시작: D:\속초일보_보도자료\2025-07-02\02_강원도\보도자료\2025-07-02_강원도_1. 보도자료(강원문화재단,  2025 문화누리카드 잔액 소진 이벤트 진행).hwp
+2025-07-02 08:45:03,864 - models.hwp_parser - WARNING - ⚠️ pyhwp 추출 실패, 대체 방법 시도: name 'hwp5' is not defined
+2025-07-02 08:45:03,902 - models.hwp_parser - INFO - 📝 대체 방법으로 텍스트 추출 완료
+2025-07-02 08:45:03,919 - models.hwp_parser - INFO - 🖼️ 이미지 추출 완료: 5개
+2025-07-02 08:45:03,920 - models.hwp_parser - INFO - 📊 메타데이터 추출 완료
+2025-07-02 08:45:03,942 - models.hwp_parser - INFO - 📋 보도자료 정보 파싱 완료
+2025-07-02 08:45:03,942 - models.hwp_parser - INFO - ✅ HWP 파싱 완료: 1798자
+2025-07-02 08:45:03,942 - controllers.ai_writer - INFO - 🖋️ AI 기사 작성 시작
+2025-07-02 08:45:03,943 - controllers.ai_writer - INFO - 🔍 내용 분석 완료
+2025-07-02 08:45:03,944 - controllers.ai_writer - INFO - 📂 카테고리 분류: 정치
+2025-07-02 08:45:03,944 - controllers.ai_writer - INFO - 📰 제목 생성: 제목 없음
+2025-07-02 08:45:03,945 - controllers.ai_writer - INFO - 📝 본문 생성 완료: 1855자
+2025-07-02 08:45:03,945 - controllers.ai_writer - INFO - ✅ AI 기사 작성 완료: 제목 없음
+2025-07-02 08:45:03,946 - controllers.ai_writer - INFO - 💾 기사 저장 완료: _posts\2025-07-02-제목-없음.md
+2025-07-02 08:45:03,946 - controllers.github_publisher - INFO - 📰 기사 발행 시작: 제목 없음
+2025-07-02 08:45:03,953 - controllers.github_publisher - INFO - 🖼️ 이미지 복사: 20250702_extracted_image_1.jpg
+2025-07-02 08:45:03,958 - controllers.github_publisher - INFO - 🖼️ 이미지 복사: 20250702_extracted_image_2.jpg
+2025-07-02 08:45:03,967 - controllers.github_publisher - INFO - 🖼️ 이미지 복사: 20250702_extracted_image_3.jpg
+2025-07-02 08:45:03,972 - controllers.github_publisher - INFO - 🖼️ 이미지 복사: 20250702_extracted_image_4.jpg
+2025-07-02 08:45:03,978 - controllers.github_publisher - INFO - 🖼️ 이미지 복사: 20250702_extracted_image_5.jpg
+2025-07-02 08:45:04,082 - controllers.github_publisher - INFO - 📁 Git에 파일 추가: 6개
+2025-07-02 08:45:04,084 - controllers.github_publisher - ERROR - ❌ 커밋 생성 실패: Ref 'HEAD' did not resolve to an object
+2025-07-02 08:45:04,084 - controllers.github_publisher - ERROR - ❌ 기사 발행 실패: Ref 'HEAD' did not resolve to an object
+2025-07-02 08:45:04,084 - main_ai_news - INFO - ✅ 처리 완료: 제목 없음
+2025-07-02 08:48:24,751 - controllers.ai_writer - INFO - 🤖 Google Gemini API 연결 성공
+2025-07-02 08:48:24,752 - controllers.ai_writer - INFO - 🖋️ AI 기사 작성기 초기화 완료
+2025-07-02 08:48:24,753 - controllers.github_publisher - INFO - 📂 Git 리포지토리 연결: D:\Python\AUTOMATIC STORAGE SYSTEM FOR Gmail FILE\sokchodaily_github_io
+2025-07-02 08:48:24,753 - controllers.github_publisher - INFO - 🚀 GitHub 발행기 초기화 완료
+2025-07-02 08:48:24,753 - main_ai_news - INFO - 🌊 속초일보 AI 뉴스 시스템 초기화 완료
+2025-07-02 08:48:24,753 - main_ai_news - INFO - 📄 HWP 파일 처리 시작: D:\속초일보_보도자료\2025-07-02\02_강원도\보도자료\2025-07-02_강원도_1. 보도자료(강원문화재단,  2025 문화누리카드 잔액 소진 이벤트 진행).hwp
+2025-07-02 08:48:24,753 - models.hwp_parser - INFO - 📄 HWP 파서 초기화: D:\속초일보_보도자료\2025-07-02\02_강원도\보도자료\2025-07-02_강원도_1. 보도자료(강원문화재단,  2025 문화누리카드 잔액 소진 이벤트 진행).hwp
+2025-07-02 08:48:24,754 - models.hwp_parser - INFO - 🔍 HWP 파일 파싱 시작: D:\속초일보_보도자료\2025-07-02\02_강원도\보도자료\2025-07-02_강원도_1. 보도자료(강원문화재단,  2025 문화누리카드 잔액 소진 이벤트 진행).hwp
+2025-07-02 08:48:24,754 - models.hwp_parser - WARNING - ⚠️ pyhwp 추출 실패, 대체 방법 시도: name 'hwp5' is not defined
+2025-07-02 08:48:24,756 - models.hwp_parser - INFO - 📝 대체 방법으로 텍스트 추출 완료
+2025-07-02 08:48:24,789 - models.hwp_parser - INFO - 🖼️ 이미지 추출 완료: 5개
+2025-07-02 08:48:24,790 - models.hwp_parser - INFO - 📊 메타데이터 추출 완료
+2025-07-02 08:48:24,790 - models.hwp_parser - INFO - 📋 보도자료 정보 파싱 완료
+2025-07-02 08:48:24,790 - models.hwp_parser - INFO - ✅ HWP 파싱 완료: 1798자
+2025-07-02 08:48:24,790 - controllers.ai_writer - INFO - 🖋️ AI 기사 작성 시작
+2025-07-02 08:48:24,791 - controllers.ai_writer - INFO - 🔍 내용 분석 완료
+2025-07-02 08:48:24,791 - controllers.ai_writer - INFO - 📂 카테고리 분류: 정치
+2025-07-02 08:48:25,680 - controllers.ai_writer - INFO - 📰 제목 생성: 속초·강원도 지역 경제 활성화 위한 대규모 투자 유치 논의
+2025-07-02 08:48:31,017 - controllers.ai_writer - INFO - 📝 본문 생성 완료: 1087자
+2025-07-02 08:48:31,017 - controllers.ai_writer - INFO - ✅ AI 기사 작성 완료: 속초·강원도 지역 경제 활성화 위한 대규모 투자 유치 논의
+2025-07-02 08:48:31,018 - controllers.ai_writer - INFO - 💾 기사 저장 완료: _posts\2025-07-02-속초-강원도-지역-경제-활성화-위한-대규모-투자-유치-논의.md
+2025-07-02 08:48:31,018 - controllers.github_publisher - INFO - 📰 기사 발행 시작: 속초·강원도 지역 경제 활성화 위한 대규모 투자 유치 논의
+2025-07-02 08:48:31,025 - controllers.github_publisher - INFO - 🖼️ 이미지 복사: 20250702_extracted_image_1.jpg
+2025-07-02 08:48:31,026 - controllers.github_publisher - INFO - 🖼️ 이미지 복사: 20250702_extracted_image_2.jpg
+2025-07-02 08:48:31,028 - controllers.github_publisher - INFO - 🖼️ 이미지 복사: 20250702_extracted_image_3.jpg
+2025-07-02 08:48:31,029 - controllers.github_publisher - INFO - 🖼️ 이미지 복사: 20250702_extracted_image_4.jpg
+2025-07-02 08:48:31,036 - controllers.github_publisher - INFO - 🖼️ 이미지 복사: 20250702_extracted_image_5.jpg
+2025-07-02 08:48:31,088 - controllers.github_publisher - INFO - 📁 Git에 파일 추가: 6개
+2025-07-02 08:48:31,089 - controllers.github_publisher - ERROR - ❌ 커밋 생성 실패: Ref 'HEAD' did not resolve to an object
+2025-07-02 08:48:31,089 - controllers.github_publisher - ERROR - ❌ 기사 발행 실패: Ref 'HEAD' did not resolve to an object
+2025-07-02 08:48:31,089 - main_ai_news - INFO - ✅ 처리 완료: 속초·강원도 지역 경제 활성화 위한 대규모 투자 유치 논의

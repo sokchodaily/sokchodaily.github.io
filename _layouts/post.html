@@ -1,0 +1,138 @@
+---
+layout: default
+---
+
+<article class="post">
+    <header class="post-header">
+        <div class="post-meta">
+            <span class="category {{ page.category | downcase }}">{{ page.category }}</span>
+            <time datetime="{{ page.date | date_to_xmlschema }}">
+                📅 {{ page.date | date: "%Y년 %m월 %d일 %H:%M" }}
+            </time>
+            {% if page.author %}
+            <span class="author">✍️ {{ page.author }}</span>
+            {% endif %}
+            {% if page.location %}
+            <span class="location">📍 {{ page.location }}</span>
+            {% endif %}
+        </div>
+        
+        <h1 class="post-title">{{ page.title }}</h1>
+        
+        {% if page.subtitle %}
+        <p class="post-subtitle">{{ page.subtitle }}</p>
+        {% endif %}
+        
+        {% if page.image %}
+        <div class="post-image">
+            <img src="{{ page.image | relative_url }}" alt="{{ page.title }}">
+            {% if page.image_caption %}
+            <p class="image-caption">{{ page.image_caption }}</p>
+            {% endif %}
+        </div>
+        {% endif %}
+    </header>
+
+    <div class="post-content">
+        {{ content }}
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-stats">
+            <span>👁️ {{ page.views | default: 1 }}명 읽음</span>
+            <span>📊 {{ content | reading_time | default: "1분" }} 읽기</span>
+            {% if page.source %}
+            <span>📄 출처: {{ page.source }}</span>
+            {% endif %}
+        </div>
+        
+        {% if page.tags %}
+        <div class="post-tags">
+            <strong>🏷️ 태그:</strong>
+            {% for tag in page.tags %}
+            <span class="tag">#{{ tag }}</span>
+            {% endfor %}
+        </div>
+        {% endif %}
+        
+        <div class="post-actions">
+            <button onclick="shareArticle()" class="share-btn">📤 공유하기</button>
+            <button onclick="printArticle()" class="print-btn">🖨️ 인쇄하기</button>
+            <a href="/tip/" class="tip-btn">📧 제보하기</a>
+        </div>
+        
+        <div class="post-navigation">
+            {% if page.previous.url %}
+            <a href="{{ page.previous.url | relative_url }}" class="prev-post">
+                ← 이전 기사: {{ page.previous.title }}
+            </a>
+            {% endif %}
+            
+            {% if page.next.url %}
+            <a href="{{ page.next.url | relative_url }}" class="next-post">
+                다음 기사: {{ page.next.title }} →
+            </a>
+            {% endif %}
+        </div>
+    </footer>
+</article>
+
+<aside class="related-posts">
+    <h3>📰 관련 기사</h3>
+    <div class="related-grid">
+        {% assign related_posts = site.posts | where: "category", page.category | limit: 4 %}
+        {% for post in related_posts %}
+        {% unless post.url == page.url %}
+        <article class="related-post">
+            {% if post.image %}
+            <img src="{{ post.image | relative_url }}" alt="{{ post.title }}">
+            {% endif %}
+            <div class="related-content">
+                <h4><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h4>
+                <p class="related-meta">
+                    📅 {{ post.date | date: "%m.%d" }} | 
+                    ✍️ {{ post.author }}
+                </p>
+            </div>
+        </article>
+        {% endunless %}
+        {% endfor %}
+    </div>
+    <a href="/{{ page.category | downcase }}/" class="more-category">
+        더 많은 {{ page.category }} 뉴스 보기 →
+    </a>
+</aside>
+
+<script>
+// 기사 공유 기능
+function shareArticle() {
+    if (navigator.share) {
+        navigator.share({
+            title: '{{ page.title | escape }}',
+            text: '속초일보: {{ page.title | escape }}',
+            url: window.location.href
+        });
+    } else {
+        // 폴백: URL 복사
+        navigator.clipboard.writeText(window.location.href);
+        alert('기사 링크가 클립보드에 복사되었습니다!');
+    }
+}
+
+// 기사 인쇄 기능
+function printArticle() {
+    window.print();
+}
+
+// 페이지 뷰 카운터 (실제 구현시 서버사이드 필요)
+function incrementViewCount() {
+    // 로컬 스토리지 기반 간단한 카운터
+    const viewKey = 'article_views_{{ page.url | slugify }}';
+    let views = localStorage.getItem(viewKey) || 0;
+    views = parseInt(views) + 1;
+    localStorage.setItem(viewKey, views);
+}
+
+// 페이지 로드시 조회수 증가
+document.addEventListener('DOMContentLoaded', incrementViewCount);
+</script> 

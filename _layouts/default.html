@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% if page.title %}{{ page.title }} - {% endif %}{{ site.title }}</title>
+    <meta name="description" content="{% if page.excerpt %}{{ page.excerpt | strip_html | strip_newlines | truncate: 160 }}{% else %}{{ site.description }}{% endif %}">
+    
+    <!-- SEO -->
+    <meta property="og:title" content="{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}">
+    <meta property="og:description" content="{% if page.excerpt %}{{ page.excerpt | strip_html | strip_newlines | truncate: 160 }}{% else %}{{ site.description }}{% endif %}">
+    <meta property="og:image" content="{% if page.image %}{{ page.image | absolute_url }}{% else %}{{ '/assets/images/sokcho-logo.png' | absolute_url }}{% endif %}">
+    <meta property="og:url" content="{{ page.url | absolute_url }}">
+    <meta property="og:type" content="{% if page.layout == 'post' %}article{% else %}website{% endif %}">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="{{ '/assets/images/favicon.png' | relative_url }}">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}">
+    
+    <!-- 속초바다체 (속초시 공식 글꼴) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- 실시간 업데이트를 위한 JavaScript -->
+    <script>
+        // 자동 새로고침 (10분마다)
+        setTimeout(function() {
+            location.reload();
+        }, 600000);
+    </script>
+</head>
+<body>
+    <header class="site-header">
+        <div class="container">
+            <div class="header-top">
+                <div class="logo">
+                    <h1><a href="{{ '/' | relative_url }}">{{ site.title }}</a></h1>
+                    <p class="subtitle">{{ site.subtitle }}</p>
+                </div>
+                <div class="header-info">
+                    <div class="contact">
+                        <span>📞 {{ site.author.phone }}</span>
+                        <span>✉️ {{ site.author.email }}</span>
+                    </div>
+                    <div class="date-time" id="current-datetime"></div>
+                </div>
+            </div>
+            
+            <nav class="main-nav">
+                <ul>
+                    {% for nav in site.navigation %}
+                    <li><a href="{{ nav.url | relative_url }}" {% if page.url == nav.url %}class="active"{% endif %}>{{ nav.title }}</a></li>
+                    {% endfor %}
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="container">
+            {{ content }}
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>{{ site.title }}</h3>
+                    <p>{{ site.description }}</p>
+                    <p><strong>📍 주소:</strong> {{ site.press_info.address }}</p>
+                    <p><strong>📞 전화:</strong> {{ site.author.phone }}</p>
+                    <p><strong>✉️ 이메일:</strong> {{ site.author.email }}</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>뉴스 카테고리</h3>
+                    <ul>
+                        <li><a href="/breaking/">🚨 속보</a></li>
+                        <li><a href="/politics/">🏛️ 정치</a></li>
+                        <li><a href="/economy/">💼 경제</a></li>
+                        <li><a href="/society/">🏘️ 사회</a></li>
+                        <li><a href="/culture/">🎭 문화</a></li>
+                        <li><a href="/tourism/">🌊 관광</a></li>
+                        <li><a href="/sports/">⚽ 스포츠</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>서비스</h3>
+                    <ul>
+                        <li><a href="/contact/">📞 광고 문의</a></li>
+                        <li><a href="/tip/">📧 제보하기</a></li>
+                        <li><a href="/subscribe/">📬 구독 신청</a></li>
+                        <li><a href="/feed.xml">📡 RSS 피드</a></li>
+                        <li><a href="/privacy/">🔒 개인정보처리방침</a></li>
+                        <li><a href="/terms/">📋 이용약관</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>소셜 미디어</h3>
+                    <div class="social-links">
+                        <a href="https://facebook.com/{{ site.social.facebook }}">📘</a>
+                        <a href="https://instagram.com/{{ site.social.instagram }}">📸</a>
+                        <a href="https://twitter.com/{{ site.social.twitter }}">💬</a>
+                        <a href="https://youtube.com/{{ site.social.youtube }}">📺</a>
+                        <a href="mailto:{{ site.author.email }}">✉️</a>
+                    </div>
+                    <p class="social-message">
+                        📰 실시간 뉴스와 속초 소식을<br>
+                        소셜미디어로 받아보세요!
+                    </p>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <div class="press-info">
+                    <p><strong>📰 명칭 및 제호:</strong> {{ site.title }}</p>
+                    <p><strong>📋 등록정보:</strong> {{ site.press_info.registration }}</p>
+                    <p><strong>👨‍💼 발행인:</strong> {{ site.author.name }}</p>
+                    <p><strong>✏️ 편집인:</strong> {{ site.author.name }}</p>
+                    <p><strong>📅 등록연월일:</strong> {{ site.press_info.established }}</p>
+                    <p><strong>🗓️ 발행연월일:</strong> {{ site.press_info.first_published }}</p>
+                    <p><strong>🛡️ 청소년보호책임자:</strong> {{ site.author.name }}</p>
+                </div>
+                
+                <div class="copyright">
+                    <p>© {{ 'now' | date: "%Y" }} {{ site.title }}. All rights reserved.</p>
+                    <p class="font-credit">본 저작물은 속초시에서 제작한 속초바다체를 사용했습니다. (속초시 공식 글꼴)</p>
+                    <p class="address">{{ site.press_info.address }} | Tel: {{ site.author.phone }}</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // 현재 날짜 시간 표시
+        function updateDateTime() {
+            const now = new Date();
+            const options = {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                weekday: 'long',
+                hour: '2-digit',
+                minute: '2-digit',
+                timeZone: 'Asia/Seoul'
+            };
+            document.getElementById('current-datetime').textContent = 
+                now.toLocaleDateString('ko-KR', options);
+        }
+        
+        updateDateTime();
+        setInterval(updateDateTime, 60000); // 1분마다 업데이트
+        
+        // 모바일 메뉴 토글
+        function toggleMobileMenu() {
+            const nav = document.querySelector('.main-nav');
+            nav.classList.toggle('mobile-open');
+        }
+    </script>
+</body>
+</html> 
