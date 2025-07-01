@@ -64,3 +64,73 @@
 2025-07-02 08:48:31,089 - controllers.github_publisher - ERROR - ❌ 커밋 생성 실패: Ref 'HEAD' did not resolve to an object
 2025-07-02 08:48:31,089 - controllers.github_publisher - ERROR - ❌ 기사 발행 실패: Ref 'HEAD' did not resolve to an object
 2025-07-02 08:48:31,089 - main_ai_news - INFO - ✅ 처리 완료: 속초·강원도 지역 경제 활성화 위한 대규모 투자 유치 논의
+2025-07-02 08:49:52,209 - controllers.ai_writer - INFO - 🤖 Google Gemini API 연결 성공
+2025-07-02 08:49:52,209 - controllers.ai_writer - INFO - 🖋️ AI 기사 작성기 초기화 완료
+2025-07-02 08:49:52,215 - controllers.github_publisher - INFO - 📂 Git 리포지토리 연결: D:\Python\AUTOMATIC STORAGE SYSTEM FOR Gmail FILE\sokchodaily_github_io
+2025-07-02 08:49:52,216 - controllers.github_publisher - INFO - 🚀 GitHub 발행기 초기화 완료
+2025-07-02 08:49:52,216 - main_ai_news - INFO - 🌊 속초일보 AI 뉴스 시스템 초기화 완료
+2025-07-02 08:49:52,216 - main_ai_news - INFO - 📄 HWP 파일 처리 시작: D:\속초일보_보도자료\2025-07-02\02_강원도\보도자료\2025-07-02_강원도_10. 보도자료(강원특별자치도, 선진 자치도시 이탈리아 남티롤과 교류 본격화).hwp
+2025-07-02 08:49:52,217 - models.hwp_parser - INFO - 📄 HWP 파서 초기화: D:\속초일보_보도자료\2025-07-02\02_강원도\보도자료\2025-07-02_강원도_10. 보도자료(강원특별자치도, 선진 자치도시 이탈리아 남티롤과 교류 본격화).hwp
+2025-07-02 08:49:52,217 - models.hwp_parser - INFO - 🔍 HWP 파일 파싱 시작: D:\속초일보_보도자료\2025-07-02\02_강원도\보도자료\2025-07-02_강원도_10. 보도자료(강원특별자치도, 선진 자치도시 이탈리아 남티롤과 교류 본격화).hwp
+2025-07-02 08:49:52,217 - models.hwp_parser - WARNING - ⚠️ pyhwp 추출 실패, 대체 방법 시도: name 'hwp5' is not defined
+2025-07-02 08:49:52,219 - models.hwp_parser - INFO - 📝 대체 방법으로 텍스트 추출 완료
+2025-07-02 08:49:52,221 - models.hwp_parser - INFO - 🖼️ 이미지 추출 완료: 1개
+2025-07-02 08:49:52,221 - models.hwp_parser - INFO - 📊 메타데이터 추출 완료
+2025-07-02 08:49:52,222 - models.hwp_parser - INFO - 📋 보도자료 정보 파싱 완료
+2025-07-02 08:49:52,222 - models.hwp_parser - INFO - ✅ HWP 파싱 완료: 1986자
+2025-07-02 08:49:52,222 - controllers.ai_writer - INFO - 🖋️ AI 기사 작성 시작
+2025-07-02 08:49:52,223 - controllers.ai_writer - INFO - 🔍 내용 분석 완료
+2025-07-02 08:49:52,223 - controllers.ai_writer - INFO - 📂 카테고리 분류: 정치
+2025-07-02 08:49:52,958 - controllers.ai_writer - INFO - 📰 제목 생성: 속초·강원도 지역, 대규모 개발 사업 추진 영향은?
+2025-07-02 08:49:58,413 - controllers.ai_writer - INFO - 📝 본문 생성 완료: 1123자
+2025-07-02 08:49:58,413 - controllers.ai_writer - INFO - ✅ AI 기사 작성 완료: 속초·강원도 지역, 대규모 개발 사업 추진 영향은?
+2025-07-02 08:49:58,415 - controllers.ai_writer - INFO - 💾 기사 저장 완료: _posts\2025-07-02-속초-강원도-지역--대규모-개발-사업-추진-영향은-.md
+2025-07-02 08:49:58,415 - controllers.github_publisher - INFO - 📰 기사 발행 시작: 속초·강원도 지역, 대규모 개발 사업 추진 영향은?
+2025-07-02 08:49:58,421 - controllers.github_publisher - INFO - 🖼️ 이미지 복사: 20250702_extracted_image_1.jpg
+2025-07-02 08:49:58,467 - controllers.github_publisher - INFO - 📁 Git에 파일 추가: 2개
+2025-07-02 08:49:58,589 - controllers.github_publisher - INFO - 💾 커밋 생성: f816a84c - 🤖 AI 기사 자동 발행: 속초·강원도 지역, 대규모 개발 사업 추진 영향은?
+2025-07-02 08:49:58,590 - controllers.github_publisher - WARNING - ⚠️ 원격 리포지토리가 설정되지 않았습니다.
+2025-07-02 08:49:58,590 - controllers.github_publisher - INFO - ✅ 기사 발행 완료: f816a84c
+2025-07-02 08:49:58,590 - main_ai_news - INFO - ✅ 처리 완료: 속초·강원도 지역, 대규모 개발 사업 추진 영향은?
+2025-07-02 08:50:40,543 - controllers.ai_writer - INFO - 🤖 Google Gemini API 연결 성공
+2025-07-02 08:50:40,543 - controllers.ai_writer - INFO - 🖋️ AI 기사 작성기 초기화 완료
+2025-07-02 08:50:40,544 - controllers.github_publisher - INFO - 📂 Git 리포지토리 연결: D:\Python\AUTOMATIC STORAGE SYSTEM FOR Gmail FILE\sokchodaily_github_io
+2025-07-02 08:50:40,544 - controllers.github_publisher - INFO - 🚀 GitHub 발행기 초기화 완료
+2025-07-02 08:50:40,544 - main_ai_news - INFO - 🌊 속초일보 AI 뉴스 시스템 초기화 완료
+2025-07-02 08:50:40,545 - main_ai_news - INFO - 📄 HWP 파일 처리 시작: D:\속초일보_보도자료\2025-07-02\02_강원도\보도자료\2025-07-02_강원도_9. 보도자료(강원특별자치도, 2025년 제2차 바이오헬스산업혁신위원회 개최).hwpx
+2025-07-02 08:50:40,545 - models.hwp_parser - INFO - 📄 HWP 파서 초기화: D:\속초일보_보도자료\2025-07-02\02_강원도\보도자료\2025-07-02_강원도_9. 보도자료(강원특별자치도, 2025년 제2차 바이오헬스산업혁신위원회 개최).hwpx
+2025-07-02 08:50:40,545 - models.hwp_parser - INFO - 🔍 HWP 파일 파싱 시작: D:\속초일보_보도자료\2025-07-02\02_강원도\보도자료\2025-07-02_강원도_9. 보도자료(강원특별자치도, 2025년 제2차 바이오헬스산업혁신위원회 개최).hwpx
+2025-07-02 08:50:40,545 - models.hwp_parser - WARNING - ⚠️ pyhwp 추출 실패, 대체 방법 시도: name 'hwp5' is not defined
+2025-07-02 08:50:40,545 - models.hwp_parser - INFO - 🖼️ 이미지 추출 완료: 0개
+2025-07-02 08:50:40,545 - models.hwp_parser - INFO - 📊 메타데이터 추출 완료
+2025-07-02 08:50:40,546 - models.hwp_parser - INFO - 📋 보도자료 정보 파싱 완료
+2025-07-02 08:50:40,546 - models.hwp_parser - INFO - ✅ HWP 파싱 완료: 0자
+2025-07-02 08:50:40,546 - main_ai_news - ERROR - ❌ 처리 실패: D:\속초일보_보도자료\2025-07-02\02_강원도\보도자료\2025-07-02_강원도_9. 보도자료(강원특별자치도, 2025년 제2차 바이오헬스산업혁신위원회 개최).hwpx - 추출된 텍스트가 비어있습니다.
+2025-07-02 08:52:22,348 - controllers.ai_writer - INFO - 🤖 Google Gemini API 연결 성공
+2025-07-02 08:52:22,349 - controllers.ai_writer - INFO - 🖋️ AI 기사 작성기 초기화 완료
+2025-07-02 08:52:22,350 - controllers.github_publisher - INFO - 📂 Git 리포지토리 연결: D:\Python\AUTOMATIC STORAGE SYSTEM FOR Gmail FILE\sokchodaily_github_io
+2025-07-02 08:52:22,350 - controllers.github_publisher - INFO - 🚀 GitHub 발행기 초기화 완료
+2025-07-02 08:52:22,350 - main_ai_news - INFO - 🌊 속초일보 AI 뉴스 시스템 초기화 완료
+2025-07-02 08:52:22,350 - main_ai_news - INFO - 📄 HWP 파일 처리 시작: D:\속초일보_보도자료\2025-07-02\04_교육청\2025-07-02_교육청_[0701]1.보도자료(인공지능으로 연결되는 교실, 강원교육의 내일을 연다!).hwp
+2025-07-02 08:52:22,350 - models.hwp_parser - INFO - 📄 HWP 파서 초기화: D:\속초일보_보도자료\2025-07-02\04_교육청\2025-07-02_교육청_[0701]1.보도자료(인공지능으로 연결되는 교실, 강원교육의 내일을 연다!).hwp
+2025-07-02 08:52:22,351 - models.hwp_parser - INFO - 🔍 HWP 파일 파싱 시작: D:\속초일보_보도자료\2025-07-02\04_교육청\2025-07-02_교육청_[0701]1.보도자료(인공지능으로 연결되는 교실, 강원교육의 내일을 연다!).hwp
+2025-07-02 08:52:22,351 - models.hwp_parser - WARNING - ⚠️ pyhwp 추출 실패, 대체 방법 시도: name 'hwp5' is not defined
+2025-07-02 08:52:22,359 - models.hwp_parser - INFO - 📝 대체 방법으로 텍스트 추출 완료
+2025-07-02 08:52:22,361 - models.hwp_parser - INFO - 🖼️ 이미지 추출 완료: 1개
+2025-07-02 08:52:22,361 - models.hwp_parser - INFO - 📊 메타데이터 추출 완료
+2025-07-02 08:52:22,362 - models.hwp_parser - INFO - 📋 보도자료 정보 파싱 완료
+2025-07-02 08:52:22,362 - models.hwp_parser - INFO - ✅ HWP 파싱 완료: 2347자
+2025-07-02 08:52:22,362 - controllers.ai_writer - INFO - 🖋️ AI 기사 작성 시작
+2025-07-02 08:52:22,363 - controllers.ai_writer - INFO - 🔍 내용 분석 완료
+2025-07-02 08:52:22,364 - controllers.ai_writer - INFO - 📂 카테고리 분류: 정치
+2025-07-02 08:52:23,075 - controllers.ai_writer - INFO - 📰 제목 생성: 속초·강원도 지역 경제 활성화 위한 대규모 사업 추진
+2025-07-02 08:52:28,886 - controllers.ai_writer - INFO - 📝 본문 생성 완료: 1169자
+2025-07-02 08:52:28,886 - controllers.ai_writer - INFO - ✅ AI 기사 작성 완료: 속초·강원도 지역 경제 활성화 위한 대규모 사업 추진
+2025-07-02 08:52:28,888 - controllers.ai_writer - INFO - 💾 기사 저장 완료: _posts\2025-07-02-속초-강원도-지역-경제-활성화-위한-대규모-사업-추진.md
+2025-07-02 08:52:28,888 - controllers.github_publisher - INFO - 📰 기사 발행 시작: 속초·강원도 지역 경제 활성화 위한 대규모 사업 추진
+2025-07-02 08:52:28,895 - controllers.github_publisher - INFO - 🖼️ 이미지 복사: 20250702_extracted_image_1.jpg
+2025-07-02 08:52:28,910 - controllers.github_publisher - INFO - 📁 Git에 파일 추가: 2개
+2025-07-02 08:52:29,040 - controllers.github_publisher - INFO - 💾 커밋 생성: 1c9939b3 - 🤖 AI 기사 자동 발행: 속초·강원도 지역 경제 활성화 위한 대규모 사업 추진
+2025-07-02 08:52:29,041 - controllers.github_publisher - WARNING - ⚠️ 원격 리포지토리가 설정되지 않았습니다.
+2025-07-02 08:52:29,041 - controllers.github_publisher - INFO - ✅ 기사 발행 완료: 1c9939b3
+2025-07-02 08:52:29,041 - main_ai_news - INFO - ✅ 처리 완료: 속초·강원도 지역 경제 활성화 위한 대규모 사업 추진
