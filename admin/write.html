@@ -1,0 +1,1137 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>속초일보 블로그 에디터</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif;
+            background-color: #f5f6f7;
+            color: #333;
+        }
+
+        .editor-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            min-height: 100vh;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+
+        /* 헤더 */
+        .editor-header {
+            background: #03c75a;
+            color: white;
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #02b350;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .logo::before {
+            content: "속";
+            background: white;
+            color: #03c75a;
+            width: 32px;
+            height: 24px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.2s;
+        }
+
+        .btn-primary {
+            background: #ff6b35;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #e55a2b;
+        }
+
+        .btn-secondary {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
+        /* 툴바 */
+        .toolbar {
+            display: flex;
+            align-items: center;
+            padding: 12px 20px;
+            background: #fafafa;
+            border-bottom: 1px solid #e5e5e5;
+            gap: 4px;
+            flex-wrap: wrap;
+        }
+
+        .toolbar-group {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            padding-right: 12px;
+            border-right: 1px solid #ddd;
+            margin-right: 12px;
+        }
+
+        .toolbar-group:last-child {
+            border-right: none;
+            margin-right: 0;
+        }
+
+        .tool-btn {
+            width: 32px;
+            height: 32px;
+            border: none;
+            background: transparent;
+            border-radius: 4px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            color: #666;
+            transition: all 0.2s;
+        }
+
+        .tool-btn:hover {
+            background: #e9e9e9;
+            color: #333;
+        }
+
+        .tool-btn.active {
+            background: #03c75a;
+            color: white;
+        }
+
+        .font-select, .size-select {
+            padding: 6px 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background: white;
+            font-size: 14px;
+            min-width: 80px;
+        }
+
+        .color-picker {
+            width: 32px;
+            height: 32px;
+            border: 2px solid #ddd;
+            border-radius: 4px;
+            cursor: pointer;
+            background: #000;
+        }
+
+        /* 에디터 영역 */
+        .editor-content {
+            display: flex;
+            height: calc(100vh - 120px);
+        }
+
+        .sidebar {
+            width: 240px;
+            background: #f8f9fa;
+            border-right: 1px solid #e5e5e5;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .sidebar-section {
+            margin-bottom: 24px;
+        }
+
+        .sidebar-title {
+            font-size: 14px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .insert-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-bottom: 8px;
+            border: 1px solid #e5e5e5;
+            background: white;
+        }
+
+        .insert-item:hover {
+            background: #f0f8ff;
+            border-color: #03c75a;
+        }
+
+        .insert-icon {
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f5f5f5;
+            border-radius: 4px;
+            font-size: 12px;
+        }
+
+        .main-editor {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .title-input {
+            border: none;
+            padding: 24px 40px;
+            font-size: 24px;
+            font-weight: bold;
+            background: white;
+            border-bottom: 1px solid #e5e5e5;
+            outline: none;
+        }
+
+        .title-input::placeholder {
+            color: #999;
+        }
+
+        .content-editor {
+            flex: 1;
+            padding: 40px;
+            background: white;
+            overflow-y: auto;
+        }
+
+        .editable {
+            min-height: 500px;
+            line-height: 1.8;
+            font-size: 16px;
+            outline: none;
+            border: none;
+        }
+
+        .editable:empty::before {
+            content: "속초의 소식을 전해보세요!";
+            color: #999;
+        }
+
+        /* 모달 */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+        }
+
+        .modal-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            border-radius: 8px;
+            padding: 24px;
+            min-width: 400px;
+            max-width: 600px;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #e5e5e5;
+        }
+
+        .modal-title {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #666;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+        }
+
+        .close-btn:hover {
+            background: #f5f5f5;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #333;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #03c75a;
+        }
+
+        .image-upload-area {
+            border: 2px dashed #ddd;
+            border-radius: 8px;
+            padding: 40px;
+            text-align: center;
+            background: #fafafa;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .image-upload-area:hover {
+            border-color: #03c75a;
+            background: #f0f8ff;
+        }
+
+        .upload-icon {
+            font-size: 48px;
+            color: #ccc;
+            margin-bottom: 16px;
+        }
+
+        /* 반응형 */
+        @media (max-width: 768px) {
+            .editor-content {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+                height: auto;
+                border-right: none;
+                border-bottom: 1px solid #e5e5e5;
+            }
+            
+            .toolbar {
+                overflow-x: auto;
+                flex-wrap: nowrap;
+            }
+            
+            .title-input {
+                padding: 20px;
+                font-size: 20px;
+            }
+            
+            .content-editor {
+                padding: 20px;
+            }
+        }
+
+        /* 이미지 스타일 */
+        .inserted-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin: 16px 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        /* 테이블 스타일 */
+        .editor-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 16px 0;
+        }
+
+        .editor-table th,
+        .editor-table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        .editor-table th {
+            background: #f8f9fa;
+            font-weight: bold;
+        }
+
+        /* 링크 스타일 */
+        .editable a {
+            color: #03c75a;
+            text-decoration: none;
+        }
+
+        .editable a:hover {
+            text-decoration: underline;
+        }
+
+        /* 발행 모달 스타일 */
+        .publish-form {
+            max-height: 500px;
+            overflow-y: auto;
+        }
+
+        .radio-group {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 8px;
+        }
+
+        .radio-label {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .radio-label input[type="radio"] {
+            margin: 0;
+        }
+
+        .checkbox-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-top: 8px;
+        }
+
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .checkbox-label input[type="checkbox"] {
+            margin: 0;
+        }
+
+        .help-text {
+            font-size: 12px;
+            color: #666;
+            margin-top: 8px;
+            margin-bottom: 0;
+        }
+
+        @media (max-width: 768px) {
+            .radio-group {
+                flex-direction: column;
+                gap: 12px;
+            }
+            
+            .checkbox-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="editor-container">
+        <!-- 헤더 -->
+        <div class="editor-header">
+            <div class="logo">속초일보</div>
+            <div class="header-actions">
+                <button class="btn btn-secondary">임시저장</button>
+                <button class="btn btn-primary" onclick="publishPost()">발행</button>
+            </div>
+        </div>
+
+        <!-- 툴바 -->
+        <div class="toolbar">
+            <div class="toolbar-group">
+                <select class="font-select" onchange="changeFont(this.value)">
+                    <option value="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif">기본</option>
+                    <option value="font-family: 'Noto Sans KR', sans-serif">나눔고딕</option>
+                    <option value="font-family: 'Noto Serif KR', serif">나눔명조</option>
+                    <option value="font-family: 'Do Hyeon', sans-serif">도현체</option>
+                </select>
+                <select class="size-select" onchange="changeFontSize(this.value)">
+                    <option value="12px">12px</option>
+                    <option value="14px">14px</option>
+                    <option value="16px" selected>16px</option>
+                    <option value="18px">18px</option>
+                    <option value="20px">20px</option>
+                    <option value="24px">24px</option>
+                    <option value="32px">32px</option>
+                </select>
+            </div>
+
+            <div class="toolbar-group">
+                <button class="tool-btn" onclick="execCommand('bold')" title="굵게">
+                    <strong>B</strong>
+                </button>
+                <button class="tool-btn" onclick="execCommand('italic')" title="기울임">
+                    <em>I</em>
+                </button>
+                <button class="tool-btn" onclick="execCommand('underline')" title="밑줄">
+                    <u>U</u>
+                </button>
+                <button class="tool-btn" onclick="execCommand('strikeThrough')" title="취소선">
+                    <s>S</s>
+                </button>
+            </div>
+
+            <div class="toolbar-group">
+                <input type="color" class="color-picker" onchange="changeTextColor(this.value)" title="글자색">
+                <button class="tool-btn" onclick="execCommand('hiliteColor', '#ffff00')" title="형광펜">
+                    🖍️
+                </button>
+            </div>
+
+            <div class="toolbar-group">
+                <button class="tool-btn" onclick="execCommand('justifyLeft')" title="왼쪽 정렬">
+                    ⬅️
+                </button>
+                <button class="tool-btn" onclick="execCommand('justifyCenter')" title="가운데 정렬">
+                    ↔️
+                </button>
+                <button class="tool-btn" onclick="execCommand('justifyRight')" title="오른쪽 정렬">
+                    ➡️
+                </button>
+            </div>
+
+            <div class="toolbar-group">
+                <button class="tool-btn" onclick="execCommand('insertUnorderedList')" title="글머리 기호">
+                    •
+                </button>
+                <button class="tool-btn" onclick="execCommand('insertOrderedList')" title="번호 매기기">
+                    1.
+                </button>
+                <button class="tool-btn" onclick="execCommand('outdent')" title="내어쓰기">
+                    ⬅
+                </button>
+                <button class="tool-btn" onclick="execCommand('indent')" title="들여쓰기">
+                    ➡
+                </button>
+            </div>
+
+            <div class="toolbar-group">
+                <button class="tool-btn" onclick="execCommand('undo')" title="실행 취소">
+                    ↶
+                </button>
+                <button class="tool-btn" onclick="execCommand('redo')" title="다시 실행">
+                    ↷
+                </button>
+            </div>
+        </div>
+
+        <!-- 에디터 콘텐츠 -->
+        <div class="editor-content">
+            <!-- 사이드바 -->
+            <div class="sidebar">
+                <div class="sidebar-section">
+                    <div class="sidebar-title">📷 사진</div>
+                    <div class="insert-item" onclick="openImageModal()">
+                        <div class="insert-icon">🖼️</div>
+                        <div>사진 업로드</div>
+                    </div>
+                </div>
+
+                <div class="sidebar-section">
+                    <div class="sidebar-title">😊 스티커</div>
+                    <div class="insert-item" onclick="insertEmoji('😊')">
+                        <div class="insert-icon">😊</div>
+                        <div>이모티콘</div>
+                    </div>
+                    <div class="insert-item" onclick="insertEmoji('❤️')">
+                        <div class="insert-icon">❤️</div>
+                        <div>하트</div>
+                    </div>
+                    <div class="insert-item" onclick="insertEmoji('👍')">
+                        <div class="insert-icon">👍</div>
+                        <div>좋아요</div>
+                    </div>
+                </div>
+
+                <div class="sidebar-section">
+                    <div class="sidebar-title">📋 구조</div>
+                    <div class="insert-item" onclick="insertDivider()">
+                        <div class="insert-icon">—</div>
+                        <div>구분선</div>
+                    </div>
+                    <div class="insert-item" onclick="insertTable()">
+                        <div class="insert-icon">⊞</div>
+                        <div>표</div>
+                    </div>
+                </div>
+
+                <div class="sidebar-section">
+                    <div class="sidebar-title">🔗 링크</div>
+                    <div class="insert-item" onclick="openLinkModal()">
+                        <div class="insert-icon">🔗</div>
+                        <div>링크 추가</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 메인 에디터 -->
+            <div class="main-editor">
+                <input type="text" class="title-input" placeholder="제목" id="postTitle">
+                <div class="content-editor">
+                    <div class="editable" contenteditable="true" id="postContent"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 이미지 업로드 모달 -->
+    <div id="imageModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">사진 업로드</div>
+                <button class="close-btn" onclick="closeModal('imageModal')">&times;</button>
+            </div>
+            <div class="form-group">
+                <label class="form-label">이미지 파일 선택</label>
+                <div class="image-upload-area" onclick="document.getElementById('imageInput').click()">
+                    <div class="upload-icon">📁</div>
+                    <div>클릭하여 이미지를 선택하거나 여기에 드래그하세요</div>
+                    <input type="file" id="imageInput" accept="image/*" style="display: none;" onchange="handleImageUpload(event)">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="form-label">또는 이미지 URL 입력</label>
+                <input type="text" class="form-input" id="imageUrl" placeholder="https://example.com/image.jpg">
+            </div>
+            <div style="text-align: right; margin-top: 20px;">
+                <button class="btn btn-secondary" onclick="closeModal('imageModal')">취소</button>
+                <button class="btn btn-primary" onclick="insertImage()">삽입</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 링크 모달 -->
+    <div id="linkModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">링크 추가</div>
+                <button class="close-btn" onclick="closeModal('linkModal')">&times;</button>
+            </div>
+            <div class="form-group">
+                <label class="form-label">링크 텍스트</label>
+                <input type="text" class="form-input" id="linkText" placeholder="링크 텍스트">
+            </div>
+            <div class="form-group">
+                <label class="form-label">링크 URL</label>
+                <input type="text" class="form-input" id="linkUrl" placeholder="https://example.com">
+            </div>
+            <div style="text-align: right; margin-top: 20px;">
+                <button class="btn btn-secondary" onclick="closeModal('linkModal')">취소</button>
+                <button class="btn btn-primary" onclick="insertLink()">삽입</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 발행 설정 모달 -->
+    <div id="publishModal" class="modal">
+        <div class="modal-content" style="min-width: 500px; max-width: 700px;">
+            <div class="modal-header">
+                <div class="modal-title">발행 설정</div>
+                <button class="close-btn" onclick="closeModal('publishModal')">&times;</button>
+            </div>
+            
+            <div class="publish-form">
+                <div class="form-group">
+                    <label class="form-label">카테고리</label>
+                    <select class="form-input" id="publishCategory">
+                        <option value="속초시정">속초시정</option>
+                        <option value="속초의회">속초의회</option>
+                        <option value="속초경찰서">속초경찰서</option>
+                        <option value="속초해양경찰서">속초해양경찰서</option>
+                        <option value="속초소방서">속초소방서</option>
+                        <option value="사회">사회</option>
+                        <option value="경제">경제</option>
+                        <option value="문화">문화</option>
+                        <option value="스포츠">스포츠</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">주제</label>
+                    <input type="text" class="form-input" id="publishSubject" placeholder="주제를 입력하세요">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">공개 설정</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="visibility" value="전체공개" checked>
+                            <span>전체공개</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="visibility" value="이웃공개">
+                            <span>이웃공개</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="visibility" value="서로이웃공개">
+                            <span>서로이웃공개</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="visibility" value="비공개">
+                            <span>비공개</span>
+                        </label>
+                    </div>
+                    <p class="help-text">모든 사람이 이 글을 볼 수 있습니다.</p>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">발행 설정</label>
+                    <div class="checkbox-grid">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="allowComments" checked>
+                            <span>댓글허용</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="allowGuestComments">
+                            <span>공감허용</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="allowScraps" checked>
+                            <span>검색허용</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="blogCafePush" checked>
+                            <span>블로그/카페 공유</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="allowExternalShare" checked>
+                            <span>외부 공유 허용</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="ccl">
+                            <span>CCL표시</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="saveAsDefault">
+                        <span>이 설정을 기본값으로 유지</span>
+                    </label>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">태그 편집</label>
+                    <textarea class="form-input" id="publishTags" placeholder="#태그 입력 (최대 30개)" rows="3"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">발행 시간</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="publishTime" value="현재" checked>
+                            <span>현재</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="publishTime" value="예약">
+                            <span>예약</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="notifySubscribers">
+                        <span>공지사항으로 등록</span>
+                    </label>
+                </div>
+            </div>
+
+            <div style="text-align: right; margin-top: 24px; padding-top: 20px; border-top: 1px solid #e5e5e5;">
+                <button class="btn btn-secondary" onclick="closeModal('publishModal')" style="margin-right: 12px;">취소</button>
+                <button class="btn btn-primary" onclick="finalPublish()">✓ 발행</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 에디터 참조
+        const editor = document.getElementById('postContent');
+
+        // 명령 실행
+        function execCommand(command, value = null) {
+            document.execCommand(command, false, value);
+            editor.focus();
+        }
+
+        // 폰트 변경
+        function changeFont(fontFamily) {
+            execCommand('fontName', fontFamily);
+        }
+
+        // 폰트 크기 변경
+        function changeFontSize(fontSize) {
+            execCommand('fontSize', '3');
+            const selection = window.getSelection();
+            if (selection.rangeCount > 0) {
+                const span = document.createElement('span');
+                span.style.fontSize = fontSize;
+                try {
+                    selection.getRangeAt(0).surroundContents(span);
+                } catch (e) {
+                    console.log('폰트 크기 변경 실패');
+                }
+            }
+        }
+
+        // 텍스트 색상 변경
+        function changeTextColor(color) {
+            execCommand('foreColor', color);
+        }
+
+        // 에디터에 내용 삽입하는 공통 함수
+        function insertIntoEditor(element) {
+            editor.focus();
+            
+            const selection = window.getSelection();
+            let range;
+            
+            if (selection.rangeCount > 0) {
+                range = selection.getRangeAt(0);
+            } else {
+                // 선택 영역이 없으면 에디터 끝에 삽입
+                range = document.createRange();
+                range.selectNodeContents(editor);
+                range.collapse(false);
+            }
+            
+            // 기존 선택 내용 삭제
+            range.deleteContents();
+            
+            // 새로운 요소 삽입
+            range.insertNode(element);
+            
+            // 커서를 삽입된 요소 뒤로 이동
+            range.setStartAfter(element);
+            range.collapse(true);
+            
+            // 선택 영역 업데이트
+            selection.removeAllRanges();
+            selection.addRange(range);
+        }
+
+        // 이모지 삽입
+        function insertEmoji(emoji) {
+            const textNode = document.createTextNode(emoji + ' ');
+            insertIntoEditor(textNode);
+        }
+
+        // 구분선 삽입
+        function insertDivider() {
+            const hr = document.createElement('hr');
+            hr.style.border = 'none';
+            hr.style.borderTop = '2px solid #e5e5e5';
+            hr.style.margin = '20px 0';
+            
+            insertIntoEditor(hr);
+        }
+
+        // 테이블 삽입
+        function insertTable() {
+            const table = document.createElement('table');
+            table.className = 'editor-table';
+            table.innerHTML = `
+                <thead>
+                    <tr>
+                        <th>헤더 1</th>
+                        <th>헤더 2</th>
+                        <th>헤더 3</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>내용 1</td>
+                        <td>내용 2</td>
+                        <td>내용 3</td>
+                    </tr>
+                    <tr>
+                        <td>내용 4</td>
+                        <td>내용 5</td>
+                        <td>내용 6</td>
+                    </tr>
+                </tbody>
+            `;
+            
+            insertIntoEditor(table);
+        }
+
+        // 모달 열기
+        function openImageModal() {
+            document.getElementById('imageModal').style.display = 'block';
+        }
+
+        function openLinkModal() {
+            document.getElementById('linkModal').style.display = 'block';
+        }
+
+        // 모달 닫기
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        // 이미지 업로드 처리
+        function handleImageUpload(event) {
+            const file = event.target.files[0];
+            if (file && file.type.startsWith('image/')) {
+                // 파일 크기 체크 (5MB 제한)
+                if (file.size > 5 * 1024 * 1024) {
+                    alert('파일 크기가 너무 큽니다. 5MB 이하의 이미지를 선택해주세요.');
+                    return;
+                }
+                
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('imageUrl').value = e.target.result;
+                    console.log('파일이 성공적으로 읽혔습니다.');
+                };
+                reader.onerror = function() {
+                    alert('파일을 읽는 중 오류가 발생했습니다.');
+                };
+                reader.readAsDataURL(file);
+            } else if (file) {
+                alert('이미지 파일만 업로드 가능합니다.');
+                event.target.value = ''; // 파일 입력 초기화
+            }
+        }
+
+        // 이미지 삽입
+        function insertImage() {
+            const imageUrl = document.getElementById('imageUrl').value;
+            if (imageUrl) {
+                const img = document.createElement('img');
+                img.src = imageUrl;
+                img.className = 'inserted-image';
+                img.alt = '삽입된 이미지';
+                
+                // 이미지 로드 체크
+                img.onload = function() {
+                    console.log('이미지가 성공적으로 로드되었습니다.');
+                };
+                img.onerror = function() {
+                    alert('이미지를 불러올 수 없습니다. URL을 확인해주세요.');
+                    return;
+                };
+                
+                insertIntoEditor(img);
+                
+                closeModal('imageModal');
+                document.getElementById('imageUrl').value = '';
+                document.getElementById('imageInput').value = '';
+            } else {
+                alert('이미지 URL을 입력하거나 파일을 선택해주세요.');
+            }
+        }
+
+        // 링크 삽입
+        function insertLink() {
+            const linkText = document.getElementById('linkText').value;
+            const linkUrl = document.getElementById('linkUrl').value;
+            
+            if (linkText && linkUrl) {
+                const a = document.createElement('a');
+                a.href = linkUrl;
+                a.textContent = linkText;
+                a.target = '_blank';
+                a.style.marginRight = '4px'; // 링크 뒤에 약간의 여백 추가
+                
+                insertIntoEditor(a);
+                
+                closeModal('linkModal');
+                document.getElementById('linkText').value = '';
+                document.getElementById('linkUrl').value = '';
+            } else {
+                alert('링크 텍스트와 URL을 모두 입력해주세요.');
+            }
+        }
+
+        // 발행
+        function publishPost() {
+            const title = document.getElementById('postTitle').value;
+            const content = document.getElementById('postContent').innerHTML;
+            
+            if (!title.trim()) {
+                alert('제목을 입력해주세요.');
+                document.getElementById('postTitle').focus();
+                return;
+            }
+            
+            if (!content.trim() || content === '<br>') {
+                alert('내용을 입력해주세요.');
+                editor.focus();
+                return;
+            }
+            
+            // 발행 설정 모달 열기
+            document.getElementById('publishModal').style.display = 'block';
+        }
+
+        // 최종 발행
+        function finalPublish() {
+            const title = document.getElementById('postTitle').value;
+            const content = document.getElementById('postContent').innerHTML;
+            const category = document.getElementById('publishCategory').value;
+            const subject = document.getElementById('publishSubject').value;
+            const visibility = document.querySelector('input[name="visibility"]:checked').value;
+            const publishTime = document.querySelector('input[name="publishTime"]:checked').value;
+            const tags = document.getElementById('publishTags').value;
+            
+            // 설정값들 수집
+            const settings = {
+                allowComments: document.getElementById('allowComments').checked,
+                allowGuestComments: document.getElementById('allowGuestComments').checked,
+                allowScraps: document.getElementById('allowScraps').checked,
+                blogCafePush: document.getElementById('blogCafePush').checked,
+                allowExternalShare: document.getElementById('allowExternalShare').checked,
+                ccl: document.getElementById('ccl').checked,
+                saveAsDefault: document.getElementById('saveAsDefault').checked,
+                notifySubscribers: document.getElementById('notifySubscribers').checked
+            };
+            
+            // 여기서 실제 발행 로직 구현
+            const postData = {
+                title,
+                content,
+                category,
+                subject,
+                visibility,
+                publishTime,
+                tags,
+                settings,
+                timestamp: new Date().toISOString()
+            };
+            
+            console.log('발행할 게시물 데이터:', postData);
+            
+            // 임시저장 데이터 삭제
+            localStorage.removeItem('blogDraft');
+            
+            closeModal('publishModal');
+            alert('글이 성공적으로 발행되었습니다!');
+            
+            // 선택적: 페이지 초기화 또는 리다이렉트
+            if (confirm('새 글을 작성하시겠습니까?')) {
+                document.getElementById('postTitle').value = '';
+                document.getElementById('postContent').innerHTML = '';
+                document.getElementById('postTitle').focus();
+            }
+        }
+
+        // 모달 외부 클릭시 닫기
+        window.onclick = function(event) {
+            const modals = document.querySelectorAll('.modal');
+            modals.forEach(modal => {
+                if (event.target === modal) {
+                    modal.style.display = 'none';
+                }
+            });
+        }
+
+        // 키보드 단축키
+        document.addEventListener('keydown', function(e) {
+            if (e.ctrlKey || e.metaKey) {
+                switch(e.key) {
+                    case 'b':
+                        e.preventDefault();
+                        execCommand('bold');
+                        break;
+                    case 'i':
+                        e.preventDefault();
+                        execCommand('italic');
+                        break;
+                    case 'u':
+                        e.preventDefault();
+                        execCommand('underline');
+                        break;
+                    case 's':
+                        e.preventDefault();
+                        // 임시저장 기능
+                        localStorage.setItem('blogDraft', JSON.stringify({
+                            title: document.getElementById('postTitle').value,
+                            content: document.getElementById('postContent').innerHTML,
+                            timestamp: new Date().toISOString()
+                        }));
+                        alert('임시저장되었습니다.');
+                        break;
+                }
+            }
+        });
+
+        // 페이지 로드시 임시저장된 글 복구
+        window.addEventListener('load', function() {
+            const draft = localStorage.getItem('blogDraft');
+            if (draft) {
+                const data = JSON.parse(draft);
+                if (confirm('임시저장된 글이 있습니다. 복구하시겠습니까?')) {
+                    document.getElementById('postTitle').value = data.title;
+                    document.getElementById('postContent').innerHTML = data.content;
+                }
+            }
+            
+            // 에디터 초기 포커스 설정
+            editor.focus();
+        });
+    </script>
+</body>
+</html>

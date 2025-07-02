@@ -1,0 +1,53 @@
+# 사이트 기본 정보
+title: 속초일보
+description: 속초 지역 대표 언론사 - 정확하고 신속한 뉴스 전달
+baseurl: ""
+url: "https://sokchodaily.github.io"
+
+# 속초일보 회사 정보
+company:
+  name: "속초일보"
+  registration: "강원, 아00263"
+  publisher: "김도엽"
+  editor: "김도엽"
+  established: "2019년 11월 19일"
+  published: "2019년 11월 26일"
+  address: "(우)24826, 강원도 속초시 중앙시장로 8길 7-6"
+  phone: "010-8423-7491"
+  youth_protection: "김도엽"
+  
+# 연락처 정보
+contact:
+  email: "news@sokchodaily.com"
+  phone: "010-8423-7491"
+  address: "강원도 속초시 중앙시장로 8길 7-6"
+  postal_code: "24826"
+
+# Jekyll 설정
+markdown: kramdown
+highlighter: rouge
+theme: minima
+permalink: /:categories/:year/:month/:day/:title/
+
+# 플러그인
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-seo-tag
+
+# 카테고리 설정
+categories:
+  - 속보
+  - 정치
+  - 경제
+  - 사회
+  - 문화
+  - 관광
+  - 스포츠
+
+# 빌드 설정
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor/

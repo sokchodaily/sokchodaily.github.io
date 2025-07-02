@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% if page.title %}{{ page.title }} - {% endif %}{{ site.title }}</title>
+    <meta name="description" content="{% if page.excerpt %}{{ page.excerpt | strip_html | strip_newlines | truncate: 160 }}{% else %}{{ site.description }}{% endif %}">
+    
+    <!-- 속초바다 글꼴 로딩 -->
+    <link rel="preconnect" href="https://fastly.jsdelivr.net">
+    <style>
+        /* 속초바다 돋움체 */
+        @font-face {
+            font-family: 'SokchoBadaDotum';
+            src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2402_1@1.0/SokchoBadaDotum.woff2') format('woff2');
+            font-weight: normal;
+            font-style: normal;
+        }
+        
+        /* 속초바다 바탕체 */
+        @font-face {
+            font-family: 'SokchoBadaBatang';
+            src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2402_1@1.0/SokchoBadaBatang.woff2') format('woff2');
+            font-weight: normal;
+            font-style: normal;
+        }
+        
+        /* 속초바다 손글씨체 */
+        @font-face {
+            font-family: 'SokchoBadaCalligraphy';
+            src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2402_1@1.0/SokchoBadaCalligraphy.woff2') format('woff2');
+            font-weight: normal;
+            font-style: normal;
+        }
+    </style>
+    
+    <!-- 기본 스타일 -->
+    <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
+</head>
+<body>
+    <!-- 헤더 -->
+    {% include header.html %}
+    
+    <!-- 메인 콘텐츠 -->
+    <main>
+        {{ content }}
+    </main>
+    
+    <!-- 푸터 -->
+    {% include footer.html %}
+</body>
+</html>

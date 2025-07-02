@@ -1,0 +1,100 @@
+---
+layout: default
+title: 속초 지역 대표 언론사
+---
+
+<!-- 히어로 섹션 -->
+<section class="hero-section">
+    <div class="container">
+        <div class="hero-content">
+            <h1>속초일보에 오신 것을 환영합니다</h1>
+            <p>바다와 산이 만나는 도시 속초의 모든 소식을 정확하고 신속하게 전달합니다.<br>
+            시민 여러분과 함께 만들어가는 지역 언론사입니다.</p>
+            <a href="#latest-news" class="cta-button">최신 뉴스 보기 📰</a>
+        </div>
+    </div>
+</section>
+
+<!-- 최신 뉴스 섹션 -->
+<section id="latest-news" class="container">
+    <h2 style="font-family: 'SokchoBadaBatang', sans-serif; font-size: 2rem; text-align: center; margin-bottom: 40px; color: #1e40af;">
+        🔥 주요 뉴스
+    </h2>
+    
+    <div class="news-grid">
+        {% for post in site.posts limit:6 %}
+        <article class="news-card">
+            {% assign post_images = post.content | split: '![' %}
+            {% assign first_image = '' %}
+            {% for image_part in post_images %}
+                {% if forloop.index > 1 %}
+                    {% assign image_url = image_part | split: '](' | last | split: ')' | first %}
+                    {% if image_url contains '/assets/images/' %}
+                        {% assign first_image = image_url %}
+                        {% break %}
+                    {% endif %}
+                {% endif %}
+            {% endfor %}
+            
+            {% if first_image != '' %}
+                <img src="{{ first_image | relative_url }}" alt="{{ post.title }}">
+            {% else %}
+                <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=200&fit=crop" alt="{{ post.title }}">
+            {% endif %}
+            
+            <div class="news-card-content">
+                <span class="news-category">{{ post.categories | first | default: '뉴스' }}</span>
+                <h3><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h3>
+                <p style="color: #64748b; font-size: 14px; margin-top: 10px;">
+                    {{ post.excerpt | strip_html | truncate: 120 }}
+                </p>
+                <div class="news-meta">
+                    <span>📅 {{ post.date | date: "%Y.%m.%d" }}</span> | 
+                    <span>✍️ {{ post.author | default: 'AI기자' }}</span> | 
+                    <span>👁️ 읽기</span>
+                </div>
+            </div>
+        </article>
+        {% endfor %}
+    </div>
+
+    <!-- 더 많은 뉴스 버튼 -->
+    <div style="text-align: center; margin-top: 40px;">
+        <a href="#" class="cta-button">더 많은 뉴스 보기 →</a>
+    </div>
+</section>
+
+<!-- 속초 정보 섹션 -->
+<section style="background: #f8fafc; padding: 60px 0; margin-top: 60px;">
+    <div class="container">
+        <h2 style="font-family: 'SokchoBadaCalligraphy', sans-serif; font-size: 2.5rem; text-align: center; margin-bottom: 40px; color: #1e40af;">
+            🌊 속초와 함께하는 속초일보 🏔️
+        </h2>
+        
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; margin-top: 40px;">
+            <div style="text-align: center; padding: 30px; background: white; border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.07);">
+                <div style="font-size: 3rem; margin-bottom: 15px;">📰</div>
+                <h3 style="font-family: 'SokchoBadaBatang', sans-serif; margin-bottom: 10px;">정확한 보도</h3>
+                <p style="color: #64748b;">팩트 체크를 통한 정확하고 공정한 뉴스 전달</p>
+            </div>
+            
+            <div style="text-align: center; padding: 30px; background: white; border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.07);">
+                <div style="font-size: 3rem; margin-bottom: 15px;">⚡</div>
+                <h3 style="font-family: 'SokchoBadaBatang', sans-serif; margin-bottom: 10px;">신속한 전달</h3>
+                <p style="color: #64748b;">속초의 새로운 소식을 가장 빠르게 전해드립니다</p>
+            </div>
+            
+            <div style="text-align: center; padding: 30px; background: white; border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.07);">
+                <div style="font-size: 3rem; margin-bottom: 15px;">🤝</div>
+                <h3 style="font-family: 'SokchoBadaBatang', sans-serif; margin-bottom: 10px;">시민과 함께</h3>
+                <p style="color: #64748b;">시민의 목소리를 듣고 함께 발전하는 언론사</p>
+            </div>
+            
+            <div style="text-align: center; padding: 30px; background: white; border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.07);">
+                <div style="font-size: 3rem; margin-bottom: 15px;">🌐</div>
+                <h3 style="font-family: 'SokchoBadaBatang', sans-serif; margin-bottom: 10px;">디지털 혁신</h3>
+                <p style="color: #64748b;">최신 기술로 더 나은 뉴스 서비스 제공</p>
+            </div>
+        </div>
+    </div>
+</section>
